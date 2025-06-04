@@ -2,8 +2,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from mahasiswa.models import Mahasiswa
-from mahasiswa.serializers import MahasiswaSerializer
+from mahasiswa.models import Mahasiswa, History
+from mahasiswa.serializers import MahasiswaSerializer, HistorySerializer
 from rest_framework import generics
 
 # Create your views here.
@@ -52,3 +52,7 @@ class MahasiswaUpdate(generics.RetrieveUpdateAPIView):
 class MahasiswaDelete(generics.RetrieveDestroyAPIView):
     queryset = Mahasiswa.objects.all()
     serializer_class = MahasiswaSerializer
+
+class HistoryList(generics.ListAPIView):
+    queryset = History.objects.all().order_by('-id')
+    serializer_class = HistorySerializer
